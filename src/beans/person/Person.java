@@ -4,7 +4,7 @@ package beans.person;
 /**
  * 
  * Merci BEN T'ES TROP FORT
- * @author Nicolas LÃ©otier
+ * @author Nicolas Léotier
  *
  */
 public class Person {
