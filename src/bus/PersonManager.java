@@ -1,29 +1,31 @@
 package bus;
 
-import java.util.Collection;
-import java.util.Map;
+import java.util.HashSet;
 
 import beans.person.Person;
+import beans.validation.Validation;
 
 public class PersonManager {
 
-    final private Map<Integer, Person> persons;
+    final private HashSet<Person> persons;
 
     public PersonManager() {
-        throw new IllegalStateException("Not yet implemented");
+    	persons = new HashSet<Person>();
     }
 
-    public Collection<Person> findAll() {
-        throw new IllegalStateException("Not yet implemented");
+    public HashSet<Person> findAll() {
+        return persons;
     }
 
-    public void save(Person p) throws Exception { 	
-        persons.put(1, p);
+    public void save(Person p) {
+        persons.add(p);
     }
 
-    public void check(Person p) throws Exception {
-        if(p.getLastname() == null)
-        	throw new IllegalArgumentException("Name is required.");
+    public void check(Person p, Validation validation) {    	
+        if(!validation.lastnameValid(p.getLastname()))
+        	validation.putValidationMessage("Le nom est obligatoire.", false, "lastname");
+        
+        if(!validation.mailValid(p.getEmailAddress()))
+        	validation.putValidationMessage("L'adresse mail est invalide.", false, "emailaddress");
     }
-
 }

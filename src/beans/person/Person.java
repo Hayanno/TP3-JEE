@@ -4,7 +4,7 @@ package beans.person;
 /**
  * 
  * Merci BEN T'ES TROP FORT
- * @author Nicolas Léotier
+ * @author Nicolas LÃ©otier
  *
  */
 public class Person {
@@ -14,7 +14,13 @@ public class Person {
 					birthDate,
 					emailAddress;
 	
-	public Person() {}
+	public Person() {
+		id = 0;
+		firstname = "";
+		lastname = "";
+		birthDate = "";
+		emailAddress = "";
+	}
 
 	/* Getters */
 	public int 		getId() 						{ return id; 					}
