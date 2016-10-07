@@ -38,19 +38,16 @@ public class Edition extends HttpServlet {
     	HttpSession session = request.getSession();
     	int id = 0;
     	
-    	System.out.println(request.getParameter("id"));
-    	
-    	if(request.getParameter("id") == null) {
-    		System.out.println(request.getServletPath());
-    		if(request.getServletPath() == "/supprimer") {
-	    		pm.delete(id);
-		        session.setAttribute("persons", pm.findAll());
-	    		request.getRequestDispatcher("lister.jsp").forward(request, response);
-	    	}
-	    	else {	
-	    		session.setAttribute("person", null); // TODO: refaire en mieux
-	    		request.getRequestDispatcher("edition.jsp").forward(request, response);
-	    	}
+    	System.out.println(request.getServletPath());
+
+		if(request.getServletPath().equals("/supprimer")) {
+    		pm.delete(id);
+	        session.setAttribute("persons", pm.findAll());
+    		request.getRequestDispatcher("lister.jsp").forward(request, response);
+    	}
+    	else if(request.getParameter("id") == null) {
+    		session.setAttribute("person", null); // TODO: refaire en mieux
+    		request.getRequestDispatcher("edition.jsp").forward(request, response);
     	}
     	else {
 	    	id = Integer.parseInt(request.getParameter("id"));
