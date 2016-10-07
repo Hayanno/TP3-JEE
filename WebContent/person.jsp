@@ -1,22 +1,30 @@
-<%@ include file="header.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<jsp:include page="header.jsp">
+	<jsp:param name="title" value="Affichage personne" />
+</jsp:include>
 
 <jsp:useBean id="person" scope="session" class="beans.person.Person"></jsp:useBean>
 
-<table>
-	<tr>
-		<td>ID</td>
-		<td>First name</td>
-		<td>Last name</td>
-		<td>Birth date</td>
-		<td>Email Address</td>
-	</tr>
-	<tr>
-		<td><%= person.getId() %></td>
-		<td><%= person.getFirstname() %></td>
-		<td><%= person.getLastname() %></td>
-		<td><%= person.getBirthDate() %></td>
-		<td><%= person.getEmailAddress() %></td>
-	</tr>
-</table>
+<div class="container">
+	<h2>Personne</h2>
+	
+	<table class="table table-striped table-hover">
+		<tr>
+			<th>ID</th>
+			<th>Prénom</th>
+			<th>Nom</th>
+			<th>Date de naissance</th>
+			<th>Adresse mail</th>
+		</tr>
+		<tr>
+			<td><%= person.getId() %></td>
+			<td><%= person.getFirstname() %></td>
+			<td><%= person.getLastname() %></td>
+			<td><%= person.getBirthDate() %></td>
+			<td><%= person.getEmailAddress() %></td>
+		</tr>
+	</table>
+</div>
 
-<%@ include file="footer.jsp" %>
+<jsp:include page="footer.jsp"></jsp:include>

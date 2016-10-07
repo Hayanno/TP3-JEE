@@ -1,14 +1,13 @@
-﻿<%@ page language="java"
-    contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" %>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-  <meta charset="utf-8">
-  
+  <meta charset="UTF-8">
+
   <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
   
-  <!--  TODO: param as title -->
-  <title>Title</title>
+  <title>${param.title}</title>
 </head>
 <body>

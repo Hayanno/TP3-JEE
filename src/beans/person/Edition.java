@@ -1,6 +1,7 @@
 package beans.person;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +15,7 @@ import bus.PersonManager;
 @WebServlet(
 		name = "edition",
         description = "Servlet d'édition d'une personne",
-        urlPatterns = "/edition"
+        urlPatterns = {"/edition", "/supprimer"}
 )
 
 public class Edition extends HttpServlet {
@@ -31,19 +32,48 @@ public class Edition extends HttpServlet {
     // destruction de la servlet
     public void destroy() { }
     
-    public void doGet() { }
+    public void doGet(HttpServletRequest request, HttpServletResponse response) 
+    		throws IOException, ServletException {
+
+    	HttpSession session = request.getSession();
+    	int id = 0;
+    	
+    	System.out.println(request.getParameter("id"));
+    	
+    	if(request.getParameter("id") == null) {
+    		System.out.println(request.getServletPath());
+    		if(request.getServletPath() == "/supprimer") {
+	    		pm.delete(id);
+		        session.setAttribute("persons", pm.findAll());
+	    		request.getRequestDispatcher("lister.jsp").forward(request, response);
+	    	}
+	    	else {	
+	    		session.setAttribute("person", null); // TODO: refaire en mieux
+	    		request.getRequestDispatcher("edition.jsp").forward(request, response);
+	    	}
+    	}
+    	else {
+	    	id = Integer.parseInt(request.getParameter("id"));
+    		session.setAttribute("isNew", false);
+	    	    	
+	    	Person person = pm.retrieve(id);
+	    	session.setAttribute("person", person);
+	    	
+	    	request.getRequestDispatcher("edition.jsp").forward(request, response);
+    	}
+    }
     
     public void doPost(HttpServletRequest request, HttpServletResponse response)
     		  throws IOException, ServletException {
     	
-    	Person 		person = new Person();
-        Validation 	validation = new Validation();
+    	Person 		person 		= new Person();
+        Validation 	validation 	= new Validation();
     		  
         // récupération d'un paramètre de la requête
     	String id = request.getParameter("id");
         String firstname = request.getParameter("firstname");
-        String lastname = request.getParameter("birthdate");
-        String birthdate = request.getParameter("lastname");
+        String lastname = request.getParameter("lastname");
+        String birthdate = request.getParameter("birthdate");
         String emailaddress = request.getParameter("emailaddress");
         
         person.setId(Integer.parseInt(id));
@@ -53,18 +83,29 @@ public class Edition extends HttpServlet {
         person.setEmailAddress(emailaddress);
         
         HttpSession session = request.getSession();
+    	session.setAttribute("person", person);
         
         pm.check(person, validation);
         
         if(!validation.isValid()) {
-        	session.setAttribute("p", person);
-            session.setAttribute("v", validation);
+            session.setAttribute("validation", validation);
             request.getRequestDispatcher("edition.jsp").forward(request, response);
         }
-	    else {
+	    else {	        
+	        /* Exemple, à supprimer */
+	        Person p2 = new Person();
+	        p2.setId(0);
+	        p2.setFirstname("Nicolas");
+	        p2.setLastname("Léotier");
+	        p2.setBirthDate("1992-02-02");
+	        p2.setEmailAddress("nicolas@leotier.fr");
+	        pm.save(p2);
+	        /* Fin Exemple */
+	        
 	        pm.save(person);
-	        session.setAttribute("pm", pm);
-	        request.getRequestDispatcher("person.jsp").forward(request, response);
+	        
+	        session.setAttribute("persons", pm.findAll());
+	        request.getRequestDispatcher("lister.jsp").forward(request, response);
 	    }
     }
     
