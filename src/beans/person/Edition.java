@@ -57,7 +57,6 @@ public class Edition extends HttpServlet {
         pm.check(person, validation);
         
         if(!validation.isValid()) {
-        	System.out.println("pas valide");
         	session.setAttribute("p", person);
             session.setAttribute("v", validation);
             request.getRequestDispatcher("edition.jsp").forward(request, response);

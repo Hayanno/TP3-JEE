@@ -1,16 +1,11 @@
-<%@ page language="java"
-    contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Title</title>
-</head>
+<jsp:include page="header.jsp">
+	<jsp:param name="title" value="Accueil"/>
+</jsp:include>
+
 <body>
-  <p>Hello.</p>
-  <jsp:useBean id="date" scope="request" class="java.util.Date">
-    <p>Date : <%= date.toString()  %> !</p>
-  </jsp:useBean>
+  	<h2 class="center-block">Bienvenue !</h2>
+  
+	<script type=”text/javascript” src=”bootstrap/js/bootstrap.min.js”></script>
 </body>
-</html>
+
+<%@ include file="footer.jsp" %>
