@@ -1,4 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <jsp:include page="header.jsp">
 	<jsp:param name="title" value="Liste des personnes" />
@@ -10,7 +12,7 @@
 	<table class="table table-striped table-hover">
 		<tr>
 			<th>ID</th>
-			<th>Prénom</th>
+			<th>PrÃ©nom</th>
 			<th>Nom</th>
 			<th>Date de naissance</th>
 			<th>Adresse mail</th>
@@ -19,18 +21,18 @@
 		</tr>
 		<c:forEach items="${persons}" var="person">
 			<tr>
-				<td>${person.value.getId()}</td>
-				<td>${person.value.getFirstname()}</td>
-				<td>${person.value.getLastname()}</td>
-				<td>${person.value.getBirthDate()}</td>
-				<td>${person.value.getEmailAddress()}</td>
+				<td><c:out value="${person.value.getId()}"/></td>
+				<td><c:out value="${person.value.getFirstname()}"/></td>
+				<td><c:out value="${person.value.getLastname()}"/></td>
+				<td><c:out value="${person.value.getBirthDate()}"/></td>
+				<td><c:out value="${person.value.getEmailAddress()}"/></td>
 				<td>
-					<a type="button" class="btn btn-primary btn-xs" aria-label="éditer une personne" href="edition?id=${person.value.getId()}">
+					<a type="button" class="btn btn-primary btn-xs" aria-label="Ã©diter une personne" href="edition?id=${fn:escapeXml(person.value.getId())}">
   						<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 					</a>
 				</td>
 				<td>
-					<a type="button" class="btn btn-danger btn-xs" aria-label="supprimer une personne" href="supprimer?id=${person.value.getId()}">
+					<a type="button" class="btn btn-danger btn-xs" aria-label="supprimer une personne" href="supprimer?id=${fn:escapeXml(person.value.getId())}">
   						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 					</a>
 				</td>
@@ -42,4 +44,4 @@
 	</a>
 </div>
 
-<%@ include file="footer.jsp" %>
+<jsp:include page="footer.jsp"></jsp:include>

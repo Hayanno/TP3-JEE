@@ -37,8 +37,6 @@ public class Edition extends HttpServlet {
 
     	HttpSession session = request.getSession();
     	int id = 0;
-    	
-    	System.out.println(request.getServletPath());
 
 		if(request.getServletPath().equals("/supprimer")) {
     		pm.delete(id);
@@ -72,12 +70,14 @@ public class Edition extends HttpServlet {
         String lastname = request.getParameter("lastname");
         String birthdate = request.getParameter("birthdate");
         String emailaddress = request.getParameter("emailaddress");
+        String statusID = request.getParameter("status");
         
         person.setId(Integer.parseInt(id));
         person.setFirstname(firstname);
         person.setLastname(lastname);
         person.setBirthDate(birthdate);
         person.setEmailAddress(emailaddress);
+        person.setStatusID(Integer.parseInt(statusID));
         
         HttpSession session = request.getSession();
     	session.setAttribute("person", person);
@@ -96,6 +96,7 @@ public class Edition extends HttpServlet {
 	        p2.setLastname("Léotier");
 	        p2.setBirthDate("1992-02-02");
 	        p2.setEmailAddress("nicolas@leotier.fr");
+	        p2.setStatusID(1);
 	        pm.save(p2);
 	        /* Fin Exemple */
 	        
